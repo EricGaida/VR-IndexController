@@ -25,7 +25,7 @@ public class MyHand : MonoBehaviour {
     void Update() {
         // Pickup
         if (pickupAction.GetStateDown(pose.inputSource)) {
-            Debug.Log("pickup");
+            //Debug.Log("pickup");
 
             if (currentInteractable != null) {
                 currentInteractable.Action();
@@ -37,13 +37,13 @@ public class MyHand : MonoBehaviour {
 
         // Drop
         if (dropAction.GetStateUp(pose.inputSource)) {
-            Debug.Log("Drop");
+            //Debug.Log("Drop");
             Drop();
         }
 
         // Action, use Interactable function
         if (useAction.GetState(pose.inputSource) && currentInteractable != null) {
-            Debug.Log("Action");
+            //Debug.Log("Action");
             currentInteractable.Action();
         }
     }

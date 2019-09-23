@@ -7,6 +7,7 @@ public class TriggerButton : MonoBehaviour {
         if (collider.CompareTag("Button")) {
             Action();
         }
+        Debug.Log("triggerEnter");
     }
 
     public virtual void Action() {

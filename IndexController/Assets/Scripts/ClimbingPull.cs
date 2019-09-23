@@ -4,25 +4,26 @@ using UnityEngine;
 using Valve.VR;
 
 public class ClimbingPull : MonoBehaviour {
-    public Transform Body;
-    public SteamVR_Action_Boolean gripAction;
-    public MyHand hand;
-    public SteamVR_TrackedObject controller;
-
     [HideInInspector]
     public Vector3 previousPosition;
-
+    [HideInInspector]
+    public MyHand hand;
+    [HideInInspector]
+    public bool canGrip;
 
     void Start() {
         hand = GetComponent<MyHand>();
         previousPosition = hand.transform.localPosition;
     }
-    
 
-    void Update() {
-        if (gripAction.GetState(hand.handType)) {
-            Body.transform.position += (previousPosition - controller.transform.position);
-
-        }        
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Climb"))
+            canGrip = true;
     }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Climb"))
+            canGrip = false;
+    }
+
 }
