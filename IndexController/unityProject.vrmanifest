@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.indexcontroller.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\UnityProjects\\IndexController\\actions.json",
+      "action_manifest_path": "C:\\Users\\Gaida\\Documents\\GitHub\\VR-IndexController\\IndexController\\actions.json",
       "strings": {
         "en_us": {
           "name": "IndexController [Testing]"
