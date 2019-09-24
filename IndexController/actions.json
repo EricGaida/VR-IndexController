@@ -45,6 +45,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/Handle",
+      "type": "pose"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
@@ -131,7 +135,8 @@
       "/actions/default/out/Haptic": "Haptic",
       "/actions/Fly/in/FlyDirection": "Fly Direction",
       "/actions/Fly/in/FlyAcceleration": "Fly Acceleration",
-      "/actions/default/in/UseInteractable": "Use Interactable"
+      "/actions/default/in/UseInteractable": "Use Interactable",
+      "/actions/default/in/Handle": "Handle"
     }
   ]
 }
