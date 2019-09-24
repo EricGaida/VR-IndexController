@@ -16,7 +16,7 @@ public class WalkLocomotion : MonoBehaviour {
     public float acceleration;
     [Range(0f, 0.1f)]
     public float maxTurn;
-    [Range(0f, 1f)]
+    [Range(0.01f, 1f)]
     public float deadzone;
 
     private Vector2 joystick;
@@ -75,13 +75,10 @@ public class WalkLocomotion : MonoBehaviour {
                 // movementSpeed calculation
                 movementSpeed += acceleration / 10f;
 
-                Debug.Log("movementspeed: " + movementSpeed);
-                Debug.Log("joystick Vector: " + joystick);
-                Debug.Log("joystick Vector magnitude: " + joystick.magnitude);
-                Debug.Log("joystick Vector sqrmagnitude: " + joystick.sqrMagnitude);
-
-                if (movementSpeed > maxMovementSpeed)
-                    movementSpeed = maxMovementSpeed;
+                // maxSpeed calcualtion
+                float maxSpeed = joystick.magnitude * maxMovementSpeed;
+                if (movementSpeed > maxSpeed)
+                    movementSpeed = maxSpeed;
                 if (movementSpeed < 0)
                     movementSpeed = 0;
 
