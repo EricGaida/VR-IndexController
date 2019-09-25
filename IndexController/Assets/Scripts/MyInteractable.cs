@@ -11,7 +11,7 @@ public class MyInteractable : MonoBehaviour {
     public bool hideHandModelOnPickUp = false;
 
     [HideInInspector]
-    public MyHand m_ActiveHand;
+    public MyHand activeHand;
 
     public virtual void Action() {
         print("Action");

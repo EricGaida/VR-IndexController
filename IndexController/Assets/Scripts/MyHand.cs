@@ -25,40 +25,22 @@ public class MyHand : MonoBehaviour {
     void Update() {
         // Pickup
         if (pickupAction.GetStateDown(pose.inputSource)) {
-            //Debug.Log("pickup");
-
             if (currentInteractable != null) {
                 currentInteractable.Action();
                 return;
             }
-
             Pickup();
         }
 
         // Drop
         if (dropAction.GetStateUp(pose.inputSource)) {
-            //Debug.Log("Drop");
             Drop();
         }
 
         // Action, use Interactable function
         if (useAction.GetState(pose.inputSource) && currentInteractable != null) {
-            //Debug.Log("Action");
             currentInteractable.Action();
         }
-    }
-
-    private void OnTriggerEnter(Collider collider) {
-        if (!collider.gameObject.CompareTag("Interactable"))
-            return;
-
-        inRangeInteractables.Add(collider.gameObject.GetComponent<MyInteractable>());
-    }
-
-    private void OnTriggerExit(Collider collider) {
-        if (!collider.gameObject.CompareTag("Interactable"))
-            return;
-        inRangeInteractables.Remove(collider.gameObject.GetComponent<MyInteractable>());
     }
 
     public void Pickup() {
@@ -70,18 +52,23 @@ public class MyHand : MonoBehaviour {
             return;
 
         // Already held, check
-        if (currentInteractable.m_ActiveHand)
-            currentInteractable.m_ActiveHand.Drop();
+        if (currentInteractable.activeHand)
+            currentInteractable.activeHand.Drop();
 
-        // Position
-        currentInteractable.ApplyOffset(transform);
+        // check if kinematic or physics based
+        if (currentInteractable.GetComponent<Rigidbody>().isKinematic) {
+            currentInteractable.transform.parent = this.transform;
+        }
+        else {
+            // Position
+            currentInteractable.ApplyOffset(transform);
 
-        // Attach
-        Rigidbody targetBody = currentInteractable.GetComponent<Rigidbody>();
-        joint.connectedBody = targetBody;
-
+            // Attach
+            Rigidbody targetBody = currentInteractable.GetComponent<Rigidbody>();
+            joint.connectedBody = targetBody;
+        }
         // Set active hand
-        currentInteractable.m_ActiveHand = this;
+        currentInteractable.activeHand = this;
         currentInteractable.OnPickup(this);
     }
 
@@ -93,16 +80,22 @@ public class MyHand : MonoBehaviour {
         // Method called before drop
         currentInteractable.OnDrop(this);
 
-        // Apply velocity
-        Rigidbody targetBody = currentInteractable.GetComponent<Rigidbody>();
-        targetBody.velocity = pose.GetVelocity();
-        targetBody.angularVelocity = pose.GetAngularVelocity();
+        // check if kinematic or physics based
+        if (currentInteractable.GetComponent<Rigidbody>().isKinematic) {
+            currentInteractable.transform.parent = null;
+        }
+        else {
+            // Apply velocity
+            Rigidbody targetBody = currentInteractable.GetComponent<Rigidbody>();
+            targetBody.velocity = pose.GetVelocity();
+            targetBody.angularVelocity = pose.GetAngularVelocity();
 
-        // Detach
-        joint.connectedBody = null;
+            // Detach
+            joint.connectedBody = null;
+        }
 
-        // Clear
-        currentInteractable.m_ActiveHand = null;
+        // Clear active hand
+        currentInteractable.activeHand = null;
         currentInteractable = null;
     }
 
@@ -121,5 +114,16 @@ public class MyHand : MonoBehaviour {
         }
         return nearest;
     }
+    private void OnTriggerEnter(Collider collider) {
+        if (!collider.gameObject.CompareTag("Interactable"))
+            return;
 
+        inRangeInteractables.Add(collider.gameObject.GetComponent<MyInteractable>());
+    }
+
+    private void OnTriggerExit(Collider collider) {
+        if (!collider.gameObject.CompareTag("Interactable"))
+            return;
+        inRangeInteractables.Remove(collider.gameObject.GetComponent<MyInteractable>());
+    }
 }
