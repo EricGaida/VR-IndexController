@@ -51,10 +51,6 @@ public class MyHand : MonoBehaviour {
         if (!currentInteractable)
             return;
 
-        // Already held, check
-        if (currentInteractable.activeHand)
-            currentInteractable.activeHand.Drop();
-
         // check if kinematic or physics based
         if (currentInteractable.GetComponent<Rigidbody>().isKinematic) {
             currentInteractable.transform.parent = this.transform;
