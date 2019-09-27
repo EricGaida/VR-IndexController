@@ -9,6 +9,7 @@ TagManager:
   - Hand
   - Climb
   - Lever
+  - ClimbSwing
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,5 @@ public class Punch : MonoBehaviour {
     private void OnCollisionEnter(Collision collision) {
         if (collision.collider.CompareTag("Hand"))
             GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity * 4f;
-
     }
 }

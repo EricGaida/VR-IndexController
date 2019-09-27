@@ -7,8 +7,8 @@ public class ClimbManager : MonoBehaviour {
     public SteamVR_Action_Single grapAction;
     public SteamVR_Action_Pose handPosition;
 
-    public ClimbingPull leftHand;
-    public ClimbingPull rightHand;
+    public CanClimb leftHand;
+    public CanClimb rightHand;
 
     [Range(0f, 1f)]
     public float grapStrengthTreshhold;
@@ -25,6 +25,17 @@ public class ClimbManager : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        // Swing Climbing
+        if (leftHand.canSwingGrip && GetGrap(leftHand.hand)) {
+            attachPlayer(leftHand.swing);
+            leftHand.swing.GetComponent<Rigidbody>().useGravity = true;
+        }
+        else if (leftHand.canGrip && GetGrapUp(leftHand.hand, lastLeftGrap)) {
+            detachPlayer(leftHand.swing);
+            leftHand.swing.GetComponent<Rigidbody>().useGravity = false;
+        }
+
+        // Normal Climbing
         // tests if a hand is still grabbed onto an object
         if (isGrappedLeft || isGrappedRight)
             isGrapped = true;
@@ -94,5 +105,12 @@ public class ClimbManager : MonoBehaviour {
         if (grapAction.GetAxis(hand.handType) < grapStrengthTreshhold && lastGrap > grapStrengthTreshhold)
             return true;
         return false;
+    }
+
+    private void attachPlayer(Transform swing) {
+        swing.GetComponent<FixedJoint>().connectedBody = body;
+    }
+    private void detachPlayer(Transform swing) {
+        swing.GetComponent<FixedJoint>().connectedBody = null;
     }
 }
