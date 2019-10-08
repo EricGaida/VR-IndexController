@@ -6,12 +6,9 @@ public class Leg : MonoBehaviour {
     public Transform hipAttachPoint;
     public Transform footAttachPoint;
 
-    private void Awake() {
-    }
-
     private void Update() {
         hipAttachPoint.transform.LookAt(footAttachPoint);
         transform.position = Vector3.Lerp(hipAttachPoint.position, footAttachPoint.position, 0.5f);
-        transform.localScale = new Vector3(0.08f, Vector3.Distance(hipAttachPoint.position, footAttachPoint.position), 0.08f);
+        transform.localScale = new Vector3(0.1f, Vector3.Distance(hipAttachPoint.position, footAttachPoint.position), 0.1f);
     }
 }
