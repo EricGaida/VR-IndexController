@@ -26,7 +26,7 @@ TagManager:
   - InteractablePhysics
   - ClimbingInteractable
   - TriggerInteractable
-  - 
+  - InteractableModel
   - 
   - 
   - 

@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.vivetracker_bodytracking.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\Gaida\\Documents\\GitHub\\VR-IndexController\\ViveTracker_BodyTracking\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "ViveTracker_BodyTracking [Testing]"
+        }
+      }
+    }
+  ]
+}

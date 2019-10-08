@@ -5,6 +5,7 @@ using TMPro;
 
 public class LeverGravityAction : LeverAction {
     public TextMeshProUGUI gravityDisplay;
+    public Transform visableHand;
 
     public override void Action(float leverAngle) {
         leverAngle += 45f;
@@ -18,5 +19,8 @@ public class LeverGravityAction : LeverAction {
 
         // change UI
         gravityDisplay.text = "Gravity: " + System.Math.Round(Physics.gravity.y, 2);
+
+        // update hand position
+        visableHand.localRotation = Quaternion.Euler(90f-leverAngle, 0f, 0f);
     }
 }

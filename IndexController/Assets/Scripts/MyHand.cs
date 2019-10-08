@@ -8,8 +8,14 @@ public class MyHand : MonoBehaviour {
     public SteamVR_Action_Boolean pickupAction;
     public SteamVR_Action_Boolean dropAction;
     public SteamVR_Action_Boolean useAction;
-
     public SteamVR_Input_Sources handType;
+
+    [HideInInspector]
+    public SteamVR_Behaviour_Skeleton skeleton;
+    [HideInInspector]
+    public SkinnedMeshRenderer handRenderer;
+    [HideInInspector]
+    public SteamVR_RenderModel controllerRenderer;
 
     private SteamVR_Behaviour_Pose pose;
     private FixedJoint joint;
@@ -17,9 +23,14 @@ public class MyHand : MonoBehaviour {
     private MyInteractable currentInteractable;
     private List<MyInteractable> inRangeInteractables = new List<MyInteractable>();
 
+
     private void Awake() {
         pose = GetComponent<SteamVR_Behaviour_Pose>();
         joint = GetComponent<FixedJoint>();
+        skeleton = GetComponentInChildren<SteamVR_Behaviour_Skeleton>();
+        Debug.Log(skeleton.name);
+        handRenderer = skeleton.GetComponentInChildren<Animator>().GetComponentInChildren<SkinnedMeshRenderer>();
+        controllerRenderer = GetComponentInChildren<SteamVR_RenderModel>();
     }
 
     void Update() {
@@ -31,7 +42,6 @@ public class MyHand : MonoBehaviour {
             }
             Pickup();
         }
-
         // Drop
         if (dropAction.GetStateUp(pose.inputSource)) {
             Drop();

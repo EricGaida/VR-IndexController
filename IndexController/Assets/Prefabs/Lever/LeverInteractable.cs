@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LeverInteractable : MyInteractable {
     public Transform backportPoint;
+    public GameObject visableHand;
+
     [HideInInspector]
     public bool isGrabbed;
 
@@ -14,6 +16,7 @@ public class LeverInteractable : MyInteractable {
 
     public override void OnPickup(MyHand hand) {
         isGrabbed = true;
+        visableHand.SetActive(true);
         base.OnPickup(hand);
     }
 
@@ -21,6 +24,7 @@ public class LeverInteractable : MyInteractable {
         transform.position = backportPoint.position;
         transform.rotation = backportPoint.rotation;
         isGrabbed = false;
+        visableHand.SetActive(false);
         base.OnDrop(hand);
     }
 
