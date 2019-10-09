@@ -28,7 +28,6 @@ public class MyHand : MonoBehaviour {
         pose = GetComponent<SteamVR_Behaviour_Pose>();
         joint = GetComponent<FixedJoint>();
         skeleton = GetComponentInChildren<SteamVR_Behaviour_Skeleton>();
-        Debug.Log(skeleton.name);
         handRenderer = skeleton.GetComponentInChildren<Animator>().GetComponentInChildren<SkinnedMeshRenderer>();
         controllerRenderer = GetComponentInChildren<SteamVR_RenderModel>();
     }

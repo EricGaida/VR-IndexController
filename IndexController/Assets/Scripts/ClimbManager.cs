@@ -10,7 +10,7 @@ public class ClimbManager : MonoBehaviour {
     public CanClimb leftHand;
     public CanClimb rightHand;
 
-    [Range(0f, 1f)]
+    [Range(0.1f, 1f)]
     public float grapStrengthTreshhold;
 
     private Rigidbody body;
@@ -25,7 +25,7 @@ public class ClimbManager : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        // Swing Climbing
+        /*// Swing Climbing
         if (leftHand.canSwingGrip && GetGrap(leftHand.hand)) {
             attachPlayer(leftHand.swing);
             leftHand.swing.GetComponent<Rigidbody>().useGravity = true;
@@ -33,7 +33,7 @@ public class ClimbManager : MonoBehaviour {
         else if (leftHand.canGrip && GetGrapUp(leftHand.hand, lastLeftGrap)) {
             detachPlayer(leftHand.swing);
             leftHand.swing.GetComponent<Rigidbody>().useGravity = false;
-        }
+        }*/
 
         // Normal Climbing
         // tests if a hand is still grabbed onto an object
@@ -107,10 +107,13 @@ public class ClimbManager : MonoBehaviour {
         return false;
     }
 
+    /*
     private void attachPlayer(Transform swing) {
         swing.GetComponent<FixedJoint>().connectedBody = body;
-    }
+    }*/
+
+    /*
     private void detachPlayer(Transform swing) {
         swing.GetComponent<FixedJoint>().connectedBody = null;
-    }
+    }*/
 }
