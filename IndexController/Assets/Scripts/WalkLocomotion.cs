@@ -33,16 +33,17 @@ public class WalkLocomotion : MonoBehaviour {
         standardAcceleration = acceleration;
     }
 
-    void Update() {
+    void FixedUpdate() {
         updateInput();
         updateCollider();
         Rigidbody RBody = GetComponent<Rigidbody>();
         Vector3 velocity = new Vector3(0, 0, 0);
 
         // Get the angle of the touch and correct it for the rotation of the controller or head
-        // Controller
+
+        // move in direction of controller
         // moveDirection = Quaternion.AngleAxis(Angle(trackpad) + movementHandPosition.transform.localRotation.eulerAngles.y, Vector3.up) * Vector3.forward; //
-        // Head
+        // move in direction of head
         moveDirection = Quaternion.AngleAxis(Angle(joystick) + head.transform.localRotation.eulerAngles.y, Vector3.up) * Vector3.forward;
 
         // Calc jump
